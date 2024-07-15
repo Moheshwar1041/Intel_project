@@ -1,0 +1,108 @@
+# create database as homify
+# Sql Tables
+
+CREATE TABLE users (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL UNIQUE,
+ password VARCHAR(255) NOT NULL,
+ is_service_provider BOOLEAN NOT NULL
+);
+CREATE TABLE service_providers (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ user_id INT NOT NULL,
+ phone_number VARCHAR(15) UNIQUE,
+ service_type VARCHAR(255),
+ location VARCHAR(255), -- Added location column
+ FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE home_maintenance_service_providers (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL UNIQUE,
+ phone VARCHAR(15) NOT NULL UNIQUE,
+ location VARCHAR(255),
+ services TEXT,
+ experience VARCHAR(255) ,
+ co_workers INT
+);
+CREATE TABLE package_service_providers (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL UNIQUE,
+ phone VARCHAR(20) NOT NULL UNIQUE,
+ location VARCHAR(100) NOT NULL,
+ services TEXT NOT NULL,
+ vehicle_type VARCHAR(50) NOT NULL,
+ num_vehicles INT NOT NULL
+);
+CREATE TABLE food_providers (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ company_name VARCHAR(255) NOT NULL,
+ company_email VARCHAR(255) NOT NULL UNIQUE,
+ city VARCHAR(100),
+ about_company TEXT,
+ service_type VARCHAR(255),
+ image VARCHAR(255)
+);
+CREATE TABLE water_providers (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ company_name VARCHAR(255) NOT NULL,
+ company_email VARCHAR(255) NOT NULL UNIQUE,
+ city VARCHAR(100),
+ about_company TEXT,
+ service_type VARCHAR(255),
+ image VARCHAR(255)
+);
+CREATE TABLE properties (
+ id INT(11) PRIMARY KEY AUTO_INCREMENT,
+ property_type VARCHAR(255) NOT NULL,
+ location VARCHAR(255) NOT NULL,
+ price INT(11) NOT NULL,
+ sale_or_rent ENUM('sale', 'rent') NOT NULL,
+ email VARCHAR(255) NOT NULL,
+ description TEXT NOT NULL,
+ latitude DECIMAL(10, 8) NOT NULL,
+ longitude DECIMAL(11, 8) NOT NULL,
+ created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE package_quote_requests (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ provider_name VARCHAR(255) NOT NULL,
+ name VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL,
+ phone VARCHAR(20) NOT NULL,
+ move_from VARCHAR(100) NOT NULL,
+ move_to VARCHAR(100) NOT NULL,
+ move_date DATE NOT NULL,
+ package_size VARCHAR(50) NOT NULL,
+ additional_info TEXT,
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE home_quote_requests (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ provider_name VARCHAR(100) NOT NULL,
+ name VARCHAR(100) NOT NULL,
+ email VARCHAR(100) NOT NULL,
+ phone VARCHAR(20) NOT NULL,
+ service_date DATE NOT NULL,
+ additional_info TEXT,
+ problem TEXT NOT NULL,
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE water_customers (
+ customer_id INT AUTO_INCREMENT PRIMARY KEY,
+ customer_name VARCHAR(100) NOT NULL,
+ customer_email VARCHAR(100) NOT NULL UNIQUE,
+ address VARCHAR(255),
+ liters DECIMAL(10, 2),
+ company_id INT
+);
+CREATE TABLE food_customers (
+ customer_id INT AUTO_INCREMENT PRIMARY KEY,
+ customer_name VARCHAR(100) NOT NULL,
+ customer_email VARCHAR(100) NOT NULL UNIQUE,
+ address VARCHAR(255),
+ package VARCHAR(255),
+ company_id INT
+); 
