@@ -1,6 +1,6 @@
 # Intel_project
 Intel unnati project (homify website) 
-# All data shown in website are sample data,iser and service provider can be self registered through the website 
+# All data shown in website are sample data,user and service provider can be self registered through the website 
 # To view your website project in XAMPP, follow these steps:
 
 # 1.Install XAMPP:
